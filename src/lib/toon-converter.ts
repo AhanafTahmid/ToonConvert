@@ -88,17 +88,22 @@ function parseRootArray(lines: string[]): any[] {
     const line = lines[i];
     const trimmedData = line.trim();
     
+    // Skip empty lines
     if (!trimmedData) continue;
     
-    const values = trimmedData.split(delimiter);
-    const item: any = {};
+    const values = trimmedData.split(delimiter).map(v => v.trim());
     
-    fieldNames.forEach((fieldName, index) => {
-      const value = values[index]?.trim();
-      item[fieldName] = parseValue(value);
-    });
-    
-    arrayItems.push(item);
+    // Only process if we have values
+    if (values.length > 0 && values[0] !== '') {
+      const item: any = {};
+      
+      fieldNames.forEach((fieldName, index) => {
+        const value = values[index];
+        item[fieldName] = parseValue(value || '');
+      });
+      
+      arrayItems.push(item);
+    }
   }
   
   return arrayItems;
@@ -240,7 +245,7 @@ function parseToonLines(lines: string[], startIndex: number): { value: any; endI
     const tabularMatch = line.match(/^(\s*)(\w+)(?:\[(\d+)\])?\{([^}]+)\}([|,\t])?:/);
     if (tabularMatch) {
       const key = tabularMatch[2];
-      const fieldNames = tabularMatch[4].split(',');
+      const fieldNames = tabularMatch[4].split(',').map(f => f.trim());
       const delimiter = tabularMatch[5] === '|' ? '|' : tabularMatch[5] === '\t' ? '\t' : ',';
       
       const arrayItems: any[] = [];
@@ -249,18 +254,28 @@ function parseToonLines(lines: string[], startIndex: number): { value: any; endI
       // Parse data rows
       while (i < lines.length) {
         const dataLine = lines[i];
+        const trimmedData = dataLine.trim();
+        
+        // Stop if we hit an empty line or a line that looks like a new key
+        if (!trimmedData) {
+          i++;
+          continue;
+        }
+        
         const dataIndent = dataLine.length - dataLine.trimStart().length;
         
-        if (dataIndent <= currentIndent) break;
+        // Stop if we hit a line at the same or lower indentation level that contains a colon (new key)
+        if (dataIndent <= currentIndent && dataLine.includes(':')) break;
         
-        const trimmedData = dataLine.trim();
-        if (trimmedData) {
-          const values = trimmedData.split(delimiter);
+        const values = trimmedData.split(delimiter).map(v => v.trim());
+        
+        // Only process if we have the right number of values
+        if (values.length > 0) {
           const item: any = {};
           
           fieldNames.forEach((fieldName, index) => {
-            const value = values[index]?.trim();
-            item[fieldName] = parseValue(value);
+            const value = values[index];
+            item[fieldName] = parseValue(value || '');
           });
           
           arrayItems.push(item);

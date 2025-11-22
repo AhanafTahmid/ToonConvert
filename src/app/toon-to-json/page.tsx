@@ -5,7 +5,7 @@ import { Copy, Download, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { CodeEditor } from '@/components/CodeEditor';
-import { toonToJson } from '@/lib/toon-converter';
+import { toonToJson, calculateTokenSavings } from '@/lib/toon-converter';
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 import { useAutoSave, loadFromStorage, clearStorage } from '@/hooks/useAutoSave';
 
@@ -20,6 +20,12 @@ export default function ToonToJsonPage() {
   const [toonInput, setToonInput] = useState('');
   const [jsonOutput, setJsonOutput] = useState('');
   const [error, setError] = useState('');
+  const [stats, setStats] = useState({
+    toonTokens: 0,
+    jsonTokens: 0,
+    savedTokens: 0,
+    savedPercentage: 0,
+  });
   const { isCopied, copyToClipboard } = useCopyToClipboard();
 
   // Load saved input on mount
@@ -37,6 +43,7 @@ export default function ToonToJsonPage() {
     if (!toonInput.trim()) {
       setJsonOutput('');
       setError('');
+      setStats({ toonTokens: 0, jsonTokens: 0, savedTokens: 0, savedPercentage: 0 });
       return;
     }
 
@@ -45,9 +52,20 @@ export default function ToonToJsonPage() {
       const formatted = JSON.stringify(parsed, null, 2);
       setJsonOutput(formatted);
       setError('');
+
+      // Calculate token savings (reversed: TOON input -> JSON output)
+      const tokenStats = calculateTokenSavings(formatted, toonInput);
+      // Swap the values since we're going from TOON to JSON
+      setStats({
+        toonTokens: tokenStats.toonTokens,
+        jsonTokens: tokenStats.jsonTokens,
+        savedTokens: tokenStats.savedTokens,
+        savedPercentage: tokenStats.savedPercentage,
+      });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Invalid TOON format');
       setJsonOutput('');
+      setStats({ toonTokens: 0, jsonTokens: 0, savedTokens: 0, savedPercentage: 0 });
     }
   }, [toonInput]);
 
@@ -59,6 +77,7 @@ export default function ToonToJsonPage() {
     setToonInput('');
     setJsonOutput('');
     setError('');
+    setStats({ toonTokens: 0, jsonTokens: 0, savedTokens: 0, savedPercentage: 0 });
     clearStorage(STORAGE_KEY);
   };
 
@@ -142,6 +161,28 @@ export default function ToonToJsonPage() {
           />
         </Card>
       </div>
+
+      {/* Stats Bar */}
+      <Card className="p-4 mt-6">
+        <div className="grid grid-cols-3 gap-4 text-center">
+          <div>
+            <div className="text-sm text-muted-foreground mb-1">TOON Tokens</div>
+            <div className="text-2xl font-bold text-[#EA6A47] dark:text-[#EA6A47]">
+              {stats.toonTokens}
+            </div>
+          </div>
+          <div>
+            <div className="text-sm text-muted-foreground mb-1">JSON Tokens</div>
+            <div className="text-2xl font-bold">{stats.jsonTokens}</div>
+          </div>
+          <div>
+            <div className="text-sm text-muted-foreground mb-1">Reduction</div>
+            <div className="text-2xl font-bold text-green-600 dark:text-green-400">
+              {stats.savedPercentage}%
+            </div>
+          </div>
+        </div>
+      </Card>
     </div>
   );
 }
