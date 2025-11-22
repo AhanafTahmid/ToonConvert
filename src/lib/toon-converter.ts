@@ -11,6 +11,14 @@ const DEFAULT_OPTIONS: Required<ToonOptions> = {
 };
 
 /**
+ * Cleans JSON string by removing common syntax errors like trailing commas
+ */
+export function cleanJsonString(jsonString: string): string {
+  // Remove trailing commas before closing braces and brackets
+  return jsonString.replace(/,(\s*[}\]])/g, '$1');
+}
+
+/**
  * Counts approximate tokens in a string
  * This is a simplified token counter - in production, you might want to use a proper tokenizer
  */

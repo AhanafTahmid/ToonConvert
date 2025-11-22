@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 import { CodeEditor } from '@/components/CodeEditor';
-import { jsonToToon, calculateTokenSavings, ToonOptions } from '@/lib/toon-converter';
+import { jsonToToon, calculateTokenSavings, cleanJsonString, ToonOptions } from '@/lib/toon-converter';
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 import { useAutoSave, loadFromStorage, clearStorage } from '@/hooks/useAutoSave';
 
@@ -81,7 +81,9 @@ export default function JsonToToonPage() {
     }
 
     try {
-      const parsed = JSON.parse(jsonInput);
+      // Remove trailing commas before parsing (common mistake in JSON)
+      const cleanedJson = cleanJsonString(jsonInput);
+      const parsed = JSON.parse(cleanedJson);
       const converted = jsonToToon(parsed, options);
       setToonOutput(converted);
       setError('');
