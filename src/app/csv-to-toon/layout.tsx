@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "CSV to TOON Converter - Free Online Tool | Optimize CSV Data for LLMs",
+  title: "CSV to TOON Converter - Free Online Tool",
   description: "Convert CSV to TOON format instantly. Free online CSV to TOON converter that reduces LLM token usage. Perfect for spreadsheet data, reports, and data exports. No signup required.",
   keywords: [
     "CSV to TOON",

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "XML to TOON Converter - Free Online Tool | Optimize XML for LLMs",
+  title: "XML to TOON Converter - Free Online Tool",
   description: "Convert XML to TOON format instantly. Free online XML to TOON converter that reduces LLM token usage. Perfect for API responses, config files, and data feeds. No signup required.",
   keywords: [
     "XML to TOON",

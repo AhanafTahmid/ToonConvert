@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "JSON to TOON Converter - Free Online Tool | Reduce LLM Token Usage by 60%",
+  title: "JSON to TOON Converter - Free Online Tool",
   description: "Convert JSON to TOON format instantly. Free online JSON to TOON converter that reduces LLM token costs by up to 60%. Fast, secure, client-side processing. No signup required.",
   keywords: [
     "JSON to TOON",
@@ -56,9 +56,8 @@ export default function JSONToToonLayout({
       "Real-time token savings calculation",
       "Client-side processing",
       "No data collection",
-      "Custom delimiter options",
-      "Download converted files"
-    ]
+      "Custom delimiter options"
+      ]
   };
 
   return (

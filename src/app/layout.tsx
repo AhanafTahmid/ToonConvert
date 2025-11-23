@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     siteName: "ToonConvert",
     images: [
       {
-        url: "/og-image.png",
+        url: "/logo.png",
         width: 1200,
         height: 630,
         alt: "ToonConvert - Format Converter for LLM Token Optimization",
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     title: "ToonConvert - Convert JSON, XML, CSV, YAML to TOON Format",
     description: "Free online converter tools to reduce LLM token usage by 30-60%. Fast, secure, client-side processing.",
     creator: "@AhanafTahmid",
-    images: ["/og-image.png"],
+    images: ["/logo.png"],
   },
   robots: {
     index: true,
@@ -82,11 +82,6 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "https://toonconvert.app",
-  },
-  verification: {
-    google: "your-google-verification-code",
-    // yandex: "your-yandex-verification-code",
-    // bing: "your-bing-verification-code",
   },
   category: "technology",
 };
