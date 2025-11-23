@@ -239,9 +239,14 @@ export default function YamlToToonPage() {
           </div>
           <div>
             <div className="text-sm text-muted-foreground mb-1">Saved</div>
-            <div className="text-2xl font-bold text-green-600 dark:text-green-400">
+            <div className={`text-2xl font-bold ${stats.savedPercentage < 0 ? 'text-red-600 dark:text-red-400' : 'text-green-600 dark:text-green-400'}`}>
               {stats.savedPercentage}%
             </div>
+            {stats.savedPercentage < 0 && (
+              <div className="text-xs text-red-600 dark:text-red-400 mt-1">
+                Not recommended
+              </div>
+            )}
           </div>
         </div>
       </Card>

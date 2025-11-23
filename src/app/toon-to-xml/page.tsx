@@ -5,7 +5,7 @@ import { Copy, Download, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { CodeEditor } from '@/components/CodeEditor';
-import { toonToXml } from '@/lib/toon-converter';
+import { toonToXml, calculateTokenSavings } from '@/lib/toon-converter';
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 import { useAutoSave, loadFromStorage, clearStorage } from '@/hooks/useAutoSave';
 
@@ -20,6 +20,12 @@ export default function ToonToXmlPage() {
   const [toonInput, setToonInput] = useState('');
   const [xmlOutput, setXmlOutput] = useState('');
   const [error, setError] = useState('');
+  const [stats, setStats] = useState({
+    toonTokens: 0,
+    xmlTokens: 0,
+    savedTokens: 0,
+    savedPercentage: 0,
+  });
   const { isCopied, copyToClipboard } = useCopyToClipboard();
 
   // Load saved input on mount
@@ -37,6 +43,7 @@ export default function ToonToXmlPage() {
     if (!toonInput.trim()) {
       setXmlOutput('');
       setError('');
+      setStats({ toonTokens: 0, xmlTokens: 0, savedTokens: 0, savedPercentage: 0 });
       return;
     }
 
@@ -44,9 +51,19 @@ export default function ToonToXmlPage() {
       const converted = toonToXml(toonInput);
       setXmlOutput(converted);
       setError('');
+
+      // Calculate token savings (TOON input -> XML output)
+      const tokenStats = calculateTokenSavings(toonInput, converted);
+      setStats({
+        toonTokens: tokenStats.jsonTokens,  // Input tokens (TOON)
+        xmlTokens: tokenStats.toonTokens,   // Output tokens (XML)
+        savedTokens: tokenStats.savedTokens, // Will be negative when output > input
+        savedPercentage: tokenStats.savedPercentage, // Will be negative when output > input
+      });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Invalid TOON format');
       setXmlOutput('');
+      setStats({ toonTokens: 0, xmlTokens: 0, savedTokens: 0, savedPercentage: 0 });
     }
   }, [toonInput]);
 
@@ -58,6 +75,7 @@ export default function ToonToXmlPage() {
     setToonInput('');
     setXmlOutput('');
     setError('');
+    setStats({ toonTokens: 0, xmlTokens: 0, savedTokens: 0, savedPercentage: 0 });
     clearStorage(STORAGE_KEY);
   };
 
@@ -141,6 +159,33 @@ export default function ToonToXmlPage() {
           />
         </Card>
       </div>
+
+      {/* Stats Bar */}
+      <Card className="p-4 mt-6">
+        <div className="grid grid-cols-3 gap-4 text-center">
+          <div>
+            <div className="text-sm text-muted-foreground mb-1">TOON Tokens</div>
+            <div className="text-2xl font-bold text-[#EA6A47] dark:text-[#EA6A47]">
+              {stats.toonTokens}
+            </div>
+          </div>
+          <div>
+            <div className="text-sm text-muted-foreground mb-1">XML Tokens</div>
+            <div className="text-2xl font-bold">{stats.xmlTokens}</div>
+          </div>
+          <div>
+            <div className="text-sm text-muted-foreground mb-1">Reduction</div>
+            <div className={`text-2xl font-bold ${stats.savedPercentage < 0 ? 'text-red-600 dark:text-red-400' : 'text-green-600 dark:text-green-400'}`}>
+              {stats.savedPercentage}%
+            </div>
+            {stats.savedPercentage < 0 && (
+              <div className="text-xs text-red-600 dark:text-red-400 mt-1">
+                Not recommended
+              </div>
+            )}
+          </div>
+        </div>
+      </Card>
     </div>
   );
 }

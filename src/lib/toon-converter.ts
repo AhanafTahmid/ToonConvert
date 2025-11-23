@@ -344,22 +344,23 @@ function parseValue(value: string): any {
 }
 
 /**
- * Calculates token savings between JSON and TOON
+ * Calculates token savings between input and output formats
+ * First parameter should be INPUT format, second parameter should be OUTPUT format
  */
-export function calculateTokenSavings(jsonString: string, toonString: string): {
+export function calculateTokenSavings(inputString: string, outputString: string): {
   jsonTokens: number;
   toonTokens: number;
   savedTokens: number;
   savedPercentage: number;
 } {
-  const jsonTokens = countTokens(jsonString);
-  const toonTokens = countTokens(toonString);
-  const savedTokens = jsonTokens - toonTokens;
-  const savedPercentage = jsonTokens > 0 ? Math.round((savedTokens / jsonTokens) * 100) : 0;
+  const inputTokens = countTokens(inputString);
+  const outputTokens = countTokens(outputString);
+  const savedTokens = inputTokens - outputTokens;
+  const savedPercentage = inputTokens > 0 ? Math.round((savedTokens / inputTokens) * 100) : 0;
 
   return {
-    jsonTokens,
-    toonTokens,
+    jsonTokens: inputTokens,  // Using jsonTokens as input tokens for backward compatibility
+    toonTokens: outputTokens, // Using toonTokens as output tokens for backward compatibility
     savedTokens,
     savedPercentage,
   };

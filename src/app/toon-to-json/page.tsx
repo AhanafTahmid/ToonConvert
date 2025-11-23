@@ -53,14 +53,13 @@ export default function ToonToJsonPage() {
       setJsonOutput(formatted);
       setError('');
 
-      // Calculate token savings (reversed: TOON input -> JSON output)
-      const tokenStats = calculateTokenSavings(formatted, toonInput);
-      // Swap the values since we're going from TOON to JSON
+      // Calculate token savings (TOON input -> JSON output)
+      const tokenStats = calculateTokenSavings(toonInput, formatted);
       setStats({
-        toonTokens: tokenStats.toonTokens,
-        jsonTokens: tokenStats.jsonTokens,
-        savedTokens: tokenStats.savedTokens,
-        savedPercentage: tokenStats.savedPercentage,
+        toonTokens: tokenStats.jsonTokens,  // Input tokens (TOON)
+        jsonTokens: tokenStats.toonTokens,  // Output tokens (JSON)
+        savedTokens: tokenStats.savedTokens, // Will be negative when output > input
+        savedPercentage: tokenStats.savedPercentage, // Will be negative when output > input
       });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Invalid TOON format');
@@ -177,9 +176,14 @@ export default function ToonToJsonPage() {
           </div>
           <div>
             <div className="text-sm text-muted-foreground mb-1">Reduction</div>
-            <div className="text-2xl font-bold text-green-600 dark:text-green-400">
+            <div className={`text-2xl font-bold ${stats.savedPercentage < 0 ? 'text-red-600 dark:text-red-400' : 'text-green-600 dark:text-green-400'}`}>
               {stats.savedPercentage}%
             </div>
+            {stats.savedPercentage < 0 && (
+              <div className="text-xs text-red-600 dark:text-red-400 mt-1">
+                Not recommended
+              </div>
+            )}
           </div>
         </div>
       </Card>
