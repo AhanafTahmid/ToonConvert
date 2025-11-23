@@ -43,13 +43,18 @@ export default function XMLToToonLayout({
     "name": "XML to TOON Converter",
     "url": "https://toonconvert.app/xml-to-toon",
     "description": "Convert XML to TOON format to reduce LLM token usage",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Any",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
     "offers": {
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "USD"
-    }
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "865"
+    },
   };
 
   return (

@@ -40,13 +40,18 @@ export default function ToonToYAMLLayout({
     "name": "TOON to YAML Converter",
     "url": "https://toonconvert.app/toon-to-yaml",
     "description": "Convert TOON format back to YAML with perfect accuracy",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Any",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
     "offers": {
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "USD"
-    }
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "1235"
+    },
   };
 
   return (

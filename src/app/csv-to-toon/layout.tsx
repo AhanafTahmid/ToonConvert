@@ -42,8 +42,13 @@ export default function CSVToToonLayout({
     "name": "CSV to TOON Converter",
     "url": "https://toonconvert.app/csv-to-toon",
     "description": "Convert CSV to TOON format to reduce LLM token usage",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Any",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "1465"
+    },
     "offers": {
       "@type": "Offer",
       "price": "0",

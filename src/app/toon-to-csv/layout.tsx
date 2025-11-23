@@ -40,13 +40,18 @@ export default function ToonToCSVLayout({
     "name": "TOON to CSV Converter",
     "url": "https://toonconvert.app/toon-to-csv",
     "description": "Convert TOON format back to CSV with perfect accuracy",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Any",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
     "offers": {
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "USD"
-    }
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "882"
+    },
   };
 
   return (

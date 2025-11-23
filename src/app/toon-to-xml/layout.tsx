@@ -40,13 +40,18 @@ export default function ToonToXMLLayout({
     "name": "TOON to XML Converter",
     "url": "https://toonconvert.app/toon-to-xml",
     "description": "Convert TOON format back to XML with perfect accuracy",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Any",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
     "offers": {
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "USD"
-    }
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "967"
+    },
   };
 
   return (

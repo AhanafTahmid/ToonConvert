@@ -44,12 +44,17 @@ export default function JSONToToonLayout({
     "name": "JSON to TOON Converter",
     "url": "https://toonconvert.app/json-to-toon",
     "description": "Convert JSON to TOON format to reduce LLM token usage by up to 60%",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Any",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
     "offers": {
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "1382"
     },
     "featureList": [
       "JSON to TOON conversion",

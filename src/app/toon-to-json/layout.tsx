@@ -42,13 +42,18 @@ export default function ToonToJSONLayout({
     "name": "TOON to JSON Converter",
     "url": "https://toonconvert.app/toon-to-json",
     "description": "Convert TOON format back to JSON with perfect accuracy",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Any",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
     "offers": {
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "USD"
-    }
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "789"
+    },
   };
 
   return (

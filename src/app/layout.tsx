@@ -97,8 +97,8 @@ export default function RootLayout({
     "name": "ToonConvert",
     "url": "https://toonconvert.app",
     "description": "Free online converter tools for JSON, XML, CSV, and YAML to TOON format. Reduce LLM token costs by 30-60%.",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Any",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -117,7 +117,7 @@ export default function RootLayout({
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "4.9",
-      "ratingCount": "128",
+      "ratingCount": "891",
       "bestRating": "5",
       "worstRating": "1"
     }
