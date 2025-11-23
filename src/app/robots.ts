@@ -6,7 +6,10 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/private/'],
+      },
+      {
+        userAgent: '*',
+        disallow: ['/api/'],
       },
     ],
     sitemap: 'https://toonconvert.app/sitemap.xml',
