@@ -17,6 +17,7 @@ import { CodeEditor } from '@/components/CodeEditor';
 import { yamlToToon, calculateTokenSavings, ToonOptions } from '@/lib/toon-converter';
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 import { useAutoSave, loadFromStorage, clearStorage } from '@/hooks/useAutoSave';
+import { AdBanner } from '@/components/AdBanner';
 
 const EXAMPLE_YAML = `users:
   - id: 1
@@ -174,6 +175,9 @@ export default function YamlToToonPage() {
         </div>
       </div>
 
+      {/* Ad Banner 1 - After Action Buttons */}
+      <AdBanner />
+
       {/* Main Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* YAML Input */}
@@ -224,6 +228,9 @@ export default function YamlToToonPage() {
         </Card>
       </div>
 
+      {/* Ad Banner 2 - Before Stats */}
+      <AdBanner type="ad2" />
+
       {/* Stats Bar */}
       <Card className="p-4 mb-6 mt-4">
         <div className="grid grid-cols-3 gap-4 text-center">
@@ -250,6 +257,9 @@ export default function YamlToToonPage() {
           </div>
         </div>
       </Card>
+
+      {/* Ad Banner 3 - After Stats */}
+      <AdBanner type="ad3" />
     </div>
   );
 }

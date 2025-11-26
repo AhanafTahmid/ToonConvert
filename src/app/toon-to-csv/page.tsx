@@ -8,6 +8,7 @@ import { CodeEditor } from '@/components/CodeEditor';
 import { toonToCsv, calculateTokenSavings } from '@/lib/toon-converter';
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 import { useAutoSave, loadFromStorage, clearStorage } from '@/hooks/useAutoSave';
+import { AdBanner } from '@/components/AdBanner';
 
 const EXAMPLE_TOON = `[3]{id,name,age,city,role}:
   1,Alice Johnson,30,New York,Developer
@@ -107,6 +108,9 @@ export default function ToonToCsvPage() {
         </Button>
       </div>
 
+      {/* Ad Banner 1 - After Action Buttons */}
+      <AdBanner />
+
       {/* Main Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* TOON Input */}
@@ -160,6 +164,9 @@ export default function ToonToCsvPage() {
         </Card>
       </div>
 
+      {/* Ad Banner 2 - Before Stats */}
+      <AdBanner type="ad2" />
+
       {/* Stats Bar */}
       <Card className="p-4 mt-6">
         <div className="grid grid-cols-3 gap-4 text-center">
@@ -186,6 +193,9 @@ export default function ToonToCsvPage() {
           </div>
         </div>
       </Card>
+
+      {/* Ad Banner 3 - After Stats */}
+      <AdBanner type="ad3" />
     </div>
   );
 }
